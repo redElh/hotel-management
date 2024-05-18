@@ -53,7 +53,7 @@ const Rooms = () => {
   const filteredRooms= filterRooms(data || []);
   
   return (
-    <div className="container mx-auto pt-10 px-20">
+    <div className="container mx-auto pt-10 px-4 md:px-20">
       <Search
         roomTypeFilter={roomTypeFilter}
         searchQuery={searchQuery}

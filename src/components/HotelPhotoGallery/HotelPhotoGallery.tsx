@@ -36,7 +36,7 @@ const HotelPhotoGallery:FC<{photos:ImageType[]}> = ({photos}) => {
 
   return ( 
     <div className="container mx-auto">
-      <div className="grid md:grid-cols-2 relative gap-5 px-20">
+      <div className="grid md:grid-cols-2 relative gap-5 px-4 md:px-20">
         <div className="h-[540px] relative rounded-2xl overflow-hidden">
           <div className="hidden md:flex justify-center items-center w-full h-full">
             <Image src={photos[0].url} alt={`Room Photo ${currentPhotoIndex + 1}`} className="img scale-animation cursor-pointer" width={150} height={150} onClick={openModal.bind(this,0)}/>

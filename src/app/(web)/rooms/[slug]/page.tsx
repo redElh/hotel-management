@@ -100,7 +100,7 @@ const RoomDetails = (props:{params:{slug:string}}) => {
       <HotelPhotoGallery photos={room.images}/>
 
       <div className="container mx-auto mt-20">
-        <div className="md:grid md:grid-cols-12 gap-10 px-20">
+        <div className="md:grid md:grid-cols-12 gap-10 px-4 md:px-20">
           <div className="md:col-span-8 md:w-full">
             {/*HOTEL INFORMATION*/}
             <div>

@@ -11,7 +11,7 @@ const RoomCard:FC<Props> = (props) => {
   const {room: {coverImage,name,price,type,description,slug,isBooked},}=props;
 
   return ( 
-    <div className="rounded-xl w-72 mb-10 mx-auto md:mx-0 overflow-hidden text-black">
+    <div className="rounded-xl w-full md:w-72 mb-10 mx-auto md:mx-0 overflow-hidden text-black">
       <div className="h-60 overflow-hidden">
         <Image src={coverImage.url} alt={name} width={240} height={250} className="img scale-animation" />
       </div>
