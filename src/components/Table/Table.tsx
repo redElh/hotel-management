@@ -30,7 +30,7 @@ const Table:FC<Props> = ({bookingDetails, setRoomId,toggleRatingModal}) => {
         <tbody>
           {bookingDetails.map(booking=><tr key={booking._id} className="bg-white border-b hover:bg-gray-50">
             <th onClick={()=>router.push(`/rooms/${booking.hotelRoom.slug.current}`)} className="px-6 underline text-blue-600 cursor-pointer py-4 font-medium whitespace-nowrap">
-              {booking.hotelRoom.name}
+              {booking.hotelRoom?.name}
             </th>
             <td className="px-6 py-4">{booking.hotelRoom.price}</td>
             <td className="px-6 py-4">{booking.totalPrice}</td>
