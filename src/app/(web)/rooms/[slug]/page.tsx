@@ -26,7 +26,7 @@ const RoomDetails = (props:{params:{slug:string}}) => {
 
   const [adults,setAdults]=useState(1);
 
-  const [children,setChildren]=useState(0);
+  const [noOfChildren,setNoOfChildren]=useState(0);
 
   const fetchRoom= async()=>getRoom(slug);
   //console.log(slug);
@@ -67,7 +67,7 @@ const RoomDetails = (props:{params:{slug:string}}) => {
         checkinDate,
         checkoutDate,
         adults,
-        children,
+        children:noOfChildren,
         numberOfDays,
         hotelRoomSlug,
       });
@@ -190,7 +190,7 @@ const RoomDetails = (props:{params:{slug:string}}) => {
 
           <div className="md:col-span-4 rounded-xl shadow-lg dark:shadow dark:shadow-white sticky top-10 h-fit overflow-auto">
             {/*BOOK ROOM CTA*/}
-            <BookRoomCta discount={room.discount} price={room.price} specialNote={room.specialNote} checkinDate={checkinDate} setChekinDate={setChekinDate} checkoutDate={checkoutDate} setChekoutDate={setChekoutDate} calcMinChekoutDate={calcMinChekoutDate} adults={adults} children={children} setAdults={setAdults} setChildren={setChildren} isBooked={room.isBooked} handleBookNowClick={handleBookNowClick}/>
+            <BookRoomCta discount={room.discount} price={room.price} specialNote={room.specialNote} checkinDate={checkinDate} setChekinDate={setChekinDate} checkoutDate={checkoutDate} setChekoutDate={setChekoutDate} calcMinChekoutDate={calcMinChekoutDate} adults={adults} noOfChildren={noOfChildren} setAdults={setAdults} setNoOfChildren={setNoOfChildren} isBooked={room.isBooked} handleBookNowClick={handleBookNowClick}/>
           </div>
         </div>
       </div>

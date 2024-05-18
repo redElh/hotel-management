@@ -10,19 +10,19 @@ type Props={
   checkoutDate:Date |null;
   setChekoutDate:Dispatch<SetStateAction<Date | null>>;
   setAdults:Dispatch<SetStateAction<number>>;
-  setChildren:Dispatch<SetStateAction<number>>;
+  setNoOfChildren:Dispatch<SetStateAction<number>>;
   calcMinChekoutDate:()=>Date | null;
   price:number;
   discount:number;
   adults:number;
-  children:number;
+  noOfChildren:number;
   specialNote:string;
   isBooked:boolean;
   handleBookNowClick:()=>void;
 };
 
 const BookRoomCta:FC<Props> = (props) => {
-  const {price,discount,specialNote,checkinDate,setChekinDate,checkoutDate,setChekoutDate,calcMinChekoutDate,adults,setAdults,children,setChildren,isBooked,handleBookNowClick}=props;
+  const {price,discount,specialNote,checkinDate,setChekinDate,checkoutDate,setChekoutDate,calcMinChekoutDate,adults,setAdults,noOfChildren,setNoOfChildren,isBooked,handleBookNowClick}=props;
 
   const discountPrice=price-(price/100)*discount;
 
@@ -83,7 +83,7 @@ const BookRoomCta:FC<Props> = (props) => {
           <label htmlFor="children" className="block text-sm font-medium text-gray-900 dark:text-gray-400">
             Children
           </label>
-          <input type="number" id="children" value={children} onChange={(e)=>setChildren(+e.target.value)} min={0} max={3} className="w-full border border-gray-300 rounded-lg p-2.5" />
+          <input type="number" id="children" value={noOfChildren} onChange={(e)=>setNoOfChildren(+e.target.value)} min={0} max={3} className="w-full border border-gray-300 rounded-lg p-2.5" />
         </div>
       </div>
 
