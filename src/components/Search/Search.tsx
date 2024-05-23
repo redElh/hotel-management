@@ -34,8 +34,24 @@ const Search:FC<Props> = ({
     <section className="bg-tertiary-light px-4 md:px-20 py-6 rounded-lg">
       <div className="container mx-auto flex flex-wrap gap-4 justify-between items-center">
         <div className="w-full md:1/3 lg:w-auto mb-4 md:mb-0">
-          <label className="block text-sm font-medium mb-2 text-black">
-            Room Type
+          <label className="block text-sm font-medium mb-2 text-black md:text-center">
+            Room
+          </label>
+          <div className="relative md:w-1/6 w-full">
+            <select
+             value={roomTypeFilter}
+             onChange={handleRoomTypeChange} 
+             className="px-4 py-2 capitalize rounded leading-tight dark:bg-black focus:outline-none ">
+              <option value="All">All</option>
+              <option value="Superior Room">Superior Room</option>
+              <option value="Luxury Room">Luxury Room</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="w-full md:1/3 lg:w-auto mb-4 md:mb-0">
+          <label className="block text-sm font-medium mb-2 text-black md:text-center">
+            Suite
           </label>
           <div className="relative md:w-1/6 w-full">
             <select
@@ -43,19 +59,27 @@ const Search:FC<Props> = ({
              onChange={handleRoomTypeChange} 
              className="px-4 py-2 capitalize rounded leading-tight dark:bg-black focus:outline-none">
               <option value="All">All</option>
-              <option value="Basic">Basic</option>
-              <option value="Luxury">Luxury</option>
-              <option value="Suite">Suite</option>
+              <option value="Prestige Suite">Prestige Suite</option>
+              <option value="Mogador Suite">Mogador Suite</option>
             </select>
           </div>
         </div>
 
         <div className="w-full md:1/3 lg:w-auto mb-4 md:mb-0">
-          <label className="block text-sm font-medium mb-2 text-black">
-            Search
+          <label className="block text-sm font-medium mb-2 text-black md:text-center">
+            Villa
           </label>
-          <input type="search" id="search" placeholder="Search..." className="w-full px-4 py-3 rounded leading-tight dark:bg-black focus:outline-none placeholder:text-black dark:placeholder:text-white" value={searchQuery} onChange={handleSearchQueryChange} 
-          />
+          <div className="relative md:w-1/6 w-full">
+            <select
+             value={roomTypeFilter}
+             onChange={handleRoomTypeChange} 
+             className="px-4 py-2 capitalize rounded leading-tight dark:bg-black focus:outline-none">
+              <option value="All">All</option>
+              <option value="Prestige Villa">Prestige Villa</option>
+              <option value="Mogador Villa">Mogador Villa</option>
+              <option value="Lacoste Villa">Lacoste Villa</option>
+            </select>
+          </div>
         </div>
 
         <button className="btn-primary" type="button" onClick={handleFilterClick}

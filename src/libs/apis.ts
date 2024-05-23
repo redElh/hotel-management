@@ -61,8 +61,9 @@ export const createBooking= async ({
   return data;
 };
 
-export const updateHotelRoom = async (hotelRoom: string) => {
 
+export const updateHotelRoom = async (hotelRoom: string, duration: number) => {
+  // Update the room state to "booked"
   const mutation = {
     "mutations": [
       {
@@ -76,14 +77,35 @@ export const updateHotelRoom = async (hotelRoom: string) => {
     ],
   };
 
-  const { data } = await axios.post(
+  await axios.post(
     `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-10-21/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
     mutation,
     { headers: { Authorization: `Bearer ${process.env.SANITY_STUDIO_TOKEN}` } }
   );
 
-  return data;
+  // Schedule the reset operation
+  setTimeout(async () => {
+    const resetMutation = {
+      "mutations": [
+        {
+          "patch": {
+            "id": hotelRoom,
+            "set": {
+              isBooked: false,
+            },
+          },
+        },
+      ],
+    };
+
+    await axios.post(
+      `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-10-21/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
+      resetMutation,
+      { headers: { Authorization: `Bearer ${process.env.SANITY_STUDIO_TOKEN}` } }
+    );
+  }, duration * 24 * 60 * 60 * 1000); // Convert days to milliseconds
 };
+
 
 export async function getUserBookings(userId:string){
   const result = await sanityClient.fetch<Booking[]>(

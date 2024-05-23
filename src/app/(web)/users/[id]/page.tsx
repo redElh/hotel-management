@@ -9,7 +9,7 @@ import { signOut } from 'next-auth/react';
 import { getUserBookings } from '@/libs/apis';
 import { User } from '@/models/user';
 import LoadingSpinner from '../../loading';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BsJournalBookmarkFill } from 'react-icons/bs';
 import { GiMoneyStack } from 'react-icons/gi';
 import Table from '@/components/Table/Table';
@@ -31,6 +31,8 @@ const UserDetails = (props: { params: { id: string } }) => {
   const [isSubmittingReview, setIsSubmittingReview] = useState(false);
   const [ratingValue, setRatingValue] = useState<number | null>(0);
   const [ratingText, setRatingText] = useState('');
+  const [initialBookingsLength, setInitialBookingsLength] = useState<number>(0);
+  const [canDownload, setCanDownload] = useState(false);
 
   const toggleRatingModal = () => setIsRatingVisible(prevState => !prevState);
 
@@ -66,7 +68,7 @@ const UserDetails = (props: { params: { id: string } }) => {
   const fetchUserBooking = async () => getUserBookings(userId);
   const fetchUserData = async () => {
     const { data } = await axios.get<User>('/api/users');
-    return data;
+    return data;   
   };
 
   const {
@@ -78,7 +80,6 @@ const UserDetails = (props: { params: { id: string } }) => {
   console.log(userId);
   
   console.log("coucou:",userBookings);
-  
 
   const {
     data: userData,
@@ -94,12 +95,27 @@ const UserDetails = (props: { params: { id: string } }) => {
 
   if (loadingUserData) return <LoadingSpinner />;
   if (!userData) throw new Error('Cannot fetch data');
-  if (!userData) throw new Error('Cannot fetch data');
+
+  const handleDownload = async () => {
+    try {
+      const response = await axios.get('/api/users?downloadFile=true', { responseType: 'blob' });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'booking-confirmation.txt'); // Customize the file name if needed
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error('Failed to download file:', error);
+      toast.error('Failed to download file');
+    }
+   };
 
   return (
     <div className='container mx-auto px-4 md:px-20 py10'>
       <div className='grid md:grid-cols-12 gap-10'>
-        <div className='hidden md:block md:col-span-4 lg:col-span-3 shadow-lg h-fit sticky top-10 bg-[#eff0f2] text-black rounded-lg px-6 py-4'>
+        <div className='grid-cols-1 hidden md:block  md:col-span-4 lg:col-span-3 shadow-lg h-fit sticky top-10 bg-[#eff0f2] text-black rounded-lg px-6 py-4'>
           <div className='md:w-[143px] w-28 h-28 md:h-[143px] mx-auto mb-5 rounded-full overflow-hidden'>
             <Image
               src={userData.image}
@@ -123,13 +139,15 @@ const UserDetails = (props: { params: { id: string } }) => {
               onClick={() => signOut({ callbackUrl: '/' })}
             />
           </div>
+
         </div>
 
+
         <div className='md:col-span-8 lg:col-span-9'>
-          <div className='flex items-center'>
+          <div className='md:flex md:items-center text-center'>
             <h5 className='text-2xl font-bold mr-3'>Hello, {userData.name}</h5>
           </div>
-          <div className='md:hidden w-14 h-14 rounded-l-full overflow-hidden'>
+          <div className='md:hidden w-14 h-14 rounded-l-full overflow-hidden mx-auto'>
             <Image
               className='img scale-animation rounded-full'
               width={56}
@@ -142,16 +160,27 @@ const UserDetails = (props: { params: { id: string } }) => {
             {userData.about ?? ''}
           </p>
 
-          <p className='text-xs py-2 font-medium'>
+          <p className='text-xs py-2 font-medium text-center md:text-left '>
             Joined In {userData._createdAt.split('T')[0]}
           </p>
-          <div className='md:hidden flex items-center my-2'>
+          <div className='md:hidden flex items-center w-1/4 mx-auto text-center my-2'>
             <p className='mr-2'>Sign out</p>
             <FaSignOutAlt
               className='text-3xl cursor-pointer'
               onClick={() => signOut({ callbackUrl: '/' })}
             />
           </div>
+
+          <div className="md:text-left text-center">
+          <button
+            className={`btn-primary mt-3 cursor-pointer`}
+            type="button"
+            onClick={handleDownload}
+          >
+            Download Lastest Booking Info
+          </button>
+          </div>
+          
 
           <nav className='sticky top-0 px-2 w-fit mx-auto md:w-full md:px-5 py-3 mb-8 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 mt-7'>
             <ol

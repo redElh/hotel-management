@@ -43,8 +43,7 @@ export async function POST(req:Request,res:Response){
   try {
     const room= await getRoom(hotelRoomSlug);
     const discountPrice=room.price-(room.price/100)*room.discount;
-    const totalPrice= discountPrice*numberOfDays;
-
+    const totalPrice= discountPrice*numberOfDays+numberOfDays*1.5*2;
     //Create a stripe payment
     const stripeSession= await stripe.checkout.sessions.create({
       mode:'payment',

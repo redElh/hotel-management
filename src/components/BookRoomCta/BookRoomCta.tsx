@@ -88,9 +88,21 @@ const BookRoomCta:FC<Props> = (props) => {
       </div>
 
       {calcNoOfDays()>0 ? (
-        <p className="mt-3">
-          Total Price: $ {calcNoOfDays()*discountPrice}
-        </p>
+        <div className="grid-cols-1">
+          <p className="mt-3">
+            Tourist promotion tax: $ {calcNoOfDays()*1.5}
+          </p>
+
+          <p className="mt-3">
+            Tax of stays: $ {calcNoOfDays()*1.5}
+          </p>
+
+          <p className="mt-3">
+            Total Price: $ {calcNoOfDays()*discountPrice+calcNoOfDays()*1.5*2}
+          </p>
+        </div>
+        
+        
       ): (<></>)}
 
       <button disabled={isBooked} onClick={handleBookNowClick} className="btn-primary w-full mt-6 disabled:bg-gray-500 disabled:cursor-not-allowed">

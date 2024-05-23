@@ -80,6 +80,9 @@ const RoomDetails = (props:{params:{slug:string}}) => {
         if(result.error){
           toast.error('Payment Failed');
         }
+
+        console.log('result',result);
+        
       }
     } catch (error) {
       console.log("Error: ",error);

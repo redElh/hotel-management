@@ -64,9 +64,9 @@ export async function POST(req:Request, res:Response){
         checkoutDate,
         user
       });
-
+      
       //Update hotel Room
-      await updateHotelRoom(session.metadata.hotelRoom);
+      await updateHotelRoom(session.metadata.hotelRoom,Number(session.metadata.numberOfDays));
 
       //Create a booking
       return NextResponse.json('Booking successful',{

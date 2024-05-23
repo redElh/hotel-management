@@ -2,9 +2,14 @@ import { title } from "process";
 import { defineField } from "sanity";
 
 const roomTypes=[
-  {title:"Basic",value:"basic"},
-  {title:"Luxury",value:"luxury"},
-  {title:"Suite",value:"suite"},
+  {title:"Superior Room",value:"superior room"},
+  {title:"Luxury Room",value:"luxury room"},
+  {title:"Prestige Suite",value:"prestige suite"},
+  {title:"Mogador Suite",value:"mogador suite"},
+  {title:"Prestige Villa",value:"prestige villa"},
+  {title:"Mogador Villa",value:"mogador villa"},
+  {title:"Lacoste Villa",value:"lacoste villa"},
+
 ];
 
 const hotelRoom={
