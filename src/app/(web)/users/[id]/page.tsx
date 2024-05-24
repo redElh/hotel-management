@@ -96,22 +96,6 @@ const UserDetails = (props: { params: { id: string } }) => {
   if (loadingUserData) return <LoadingSpinner />;
   if (!userData) throw new Error('Cannot fetch data');
 
-  const handleDownload = async () => {
-    try {
-      const response = await axios.get('/api/users?downloadFile=true', { responseType: 'blob' });
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', 'booking-confirmation.txt'); // Customize the file name if needed
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-    } catch (error) {
-      console.error('Failed to download file:', error);
-      toast.error('Failed to download file');
-    }
-   };
-
   return (
     <div className='container mx-auto px-4 md:px-20 py10'>
       <div className='grid md:grid-cols-12 gap-10'>
@@ -170,17 +154,6 @@ const UserDetails = (props: { params: { id: string } }) => {
               onClick={() => signOut({ callbackUrl: '/' })}
             />
           </div>
-
-          <div className="md:text-left text-center">
-          <button
-            className={`btn-primary mt-3 cursor-pointer`}
-            type="button"
-            onClick={handleDownload}
-          >
-            Download Lastest Booking Info
-          </button>
-          </div>
-          
 
           <nav className='sticky top-0 px-2 w-fit mx-auto md:w-full md:px-5 py-3 mb-8 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 mt-7'>
             <ol
